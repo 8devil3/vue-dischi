@@ -1,0 +1,36 @@
+<template>
+  <main class="container">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4 align-items-stretch">
+        <card-disc
+        v-for="d in arrDiscs"
+        :key="d.title"
+        :disc="d"
+        />
+    </div>
+  </main>
+</template>
+
+<script>
+import axios from 'axios'
+import CardDisc from './CardDisc.vue'
+
+export default {
+  components: { CardDisc },
+  name: 'HeaderSite',
+  data () {
+    return {
+      baseURL: 'https://flynn.boolean.careers/exercises/api/array/',
+      arrDiscs: null
+    }
+  },
+  created () {
+    axios.get(`${this.baseURL}music`)
+      .then((response) => {
+        this.arrDiscs = response.data.response
+      })
+  }
+}
+</script>
+
+<style scoped lang="scss">
+</style>
