@@ -5,6 +5,7 @@
     <h2 class="h6 text-uppercase">{{ disc.title }}</h2>
     <p class="m-0">{{ disc.author }}</p>
     <p class="m-0">{{ disc.year }}</p>
+    <p class="m-0 fst-italic">{{ disc.genre }}</p>
   </article>
 </a>
 </template>

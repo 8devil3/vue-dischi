@@ -2,8 +2,9 @@
   <header class="position-fixed top-0 start-0 w-100 p-3 d-flex flex-row justify-content-between align-items-center">
     <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Spotify.png" alt="Spotify logo">
     <div>
-        <label for="genere" class="text-uppercase me-3">genere</label>
-        <select id="genere">
+        <label for="genere" class="text-uppercase me-2">genere</label>
+        <select id="genere" @change="$emit('selectedGenere', genere)" v-model="genere">
+            <option value="">Tutti</option>
             <option value="Rock">Rock</option>
             <option value="Pop">Pop</option>
             <option value="Metal">Metal</option>
@@ -15,7 +16,12 @@
 
 <script>
 export default {
-  name: 'HeaderSite'
+  name: 'HeaderSite',
+  data () {
+    return {
+      genere: ''
+    }
+  }
 }
 </script>
 
