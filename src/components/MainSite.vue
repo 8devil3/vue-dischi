@@ -18,12 +18,14 @@ export default {
   name: 'MainSite',
   props: {
     album: Array,
-    genere: String
+    genere: String,
+    artista: String
   },
   computed: {
     filterSearch () {
-      return this.album.filter((item) => item.genre.toLowerCase()
-        .includes(this.genere.toLowerCase()))
+      return this.album.filter((item) =>
+        item.genre.toLowerCase().includes(this.genere.toLowerCase()) && item.author.toLowerCase().includes(this.artista.toLowerCase())
+      )
     }
   }
 }

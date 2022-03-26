@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <header-site @selectedGenere="setGenere"/>
-    <main-site :genere="gen" :album="arrDiscs"/>
+    <header-site @selectedGenere="setGenere" @selectedArtista="setArtista" :arrMenuGenere="getMenuGenere()" :arrMenuArtista="getMenuArtista()"/>
+    <main-site :genere="gen" :artista="art" :album="arrDiscs"/>
   </div>
 </template>
 
@@ -20,19 +20,44 @@ export default {
     return {
       baseURL: 'https://flynn.boolean.careers/exercises/api/array/',
       arrDiscs: [],
-      gen: ''
+      menuItemsGenere: [],
+      menuItemsArtista: [],
+      gen: '',
+      art: ''
     }
   },
   methods: {
     setGenere (argomento) {
       this.gen = argomento
+    },
+    setArtista (argomento) {
+      this.art = argomento
+    },
+    getData () {
+      axios.get(`${this.baseURL}music`)
+        .then((response) => {
+          this.arrDiscs = response.data.response
+        })
+    },
+    getMenuGenere () {
+      this.arrDiscs.forEach(element => {
+        if (!this.menuItemsGenere.includes(element.genre)) {
+          this.menuItemsGenere.push(element.genre)
+        }
+      })
+      return this.menuItemsGenere
+    },
+    getMenuArtista () {
+      this.arrDiscs.forEach(element => {
+        if (!this.menuItemsArtista.includes(element.author)) {
+          this.menuItemsArtista.push(element.author)
+        }
+      })
+      return this.menuItemsArtista
     }
   },
   created () {
-    axios.get(`${this.baseURL}music`)
-      .then((response) => {
-        this.arrDiscs = response.data.response
-      })
+    this.getData()
   }
 }
 </script>
