@@ -24,7 +24,7 @@ export default {
   computed: {
     filterSearch () {
       return this.album.filter((item) =>
-        item.genre.toLowerCase().includes(this.genere.toLowerCase()) && item.author.toLowerCase().includes(this.artista.toLowerCase())
+        item.genre.includes(this.genere) && item.author.includes(this.artista)
       )
     }
   }
