@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header-site @selectedGenere="setGenere" @selectedArtista="setArtista" :arrMenuGenere="getMenuGenere()" :arrMenuArtista="getMenuArtista()"/>
+    <header-site @selectedGenere="setGenere" @selectedArtista="setArtista" :arrMenuGenere="menuItemsGenere" :arrMenuArtista="menuItemsArtista"/>
     <main-site :genere="gen" :artista="art" :album="arrDiscs"/>
   </div>
 </template>
@@ -37,23 +37,12 @@ export default {
       axios.get(`${this.baseURL}music`)
         .then((response) => {
           this.arrDiscs = response.data.response
+          this.getMenuSelect()
         })
     },
-    getMenuGenere () {
-      this.arrDiscs.forEach(element => {
-        if (!this.menuItemsGenere.includes(element.genre)) {
-          this.menuItemsGenere.push(element.genre)
-        }
-      })
-      return this.menuItemsGenere
-    },
-    getMenuArtista () {
-      this.arrDiscs.forEach(element => {
-        if (!this.menuItemsArtista.includes(element.author)) {
-          this.menuItemsArtista.push(element.author)
-        }
-      })
-      return this.menuItemsArtista
+    getMenuSelect () {
+      this.menuItemsGenere = [...new Set(this.arrDiscs.map(item => item.genre))]
+      this.menuItemsArtista = [...new Set(this.arrDiscs.map(item => item.author))]
     }
   },
   created () {
